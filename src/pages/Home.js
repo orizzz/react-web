@@ -11,7 +11,10 @@ import like from '../img/facility/like.png'
 import quality from '../img/facility/quality.png'
 import pay from '../img/facility/pay.png'
 
-import { Parallax, Background } from 'react-parallax'
+import '../css/App.css'
+import ItemCard from '../Component/ItemCard'
+
+import { Parallax } from 'react-parallax'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
@@ -19,6 +22,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
 import NavLink from 'react-router-dom/NavLink';
+import Axios from 'axios'
 
   var carosel_item = [];
   for (var i = 1; i <= 3; i++) {
@@ -40,25 +44,27 @@ import NavLink from 'react-router-dom/NavLink';
   }
 
 
-var rekom_item = [];
-for (var i = 1; i <= 6; i++) {
-  rekom_item.push(
-    <div className="col-lg-4 col-6 h-100 my-2">
-      <NavLink to="/Detail">
-      <Card className="border-0 shadow-sm">
-        <Card.Img variant="top" src={banner_1} /> 
-        <Card.Body className="text-dark">
-            <div className="h5">Ini nama</div>
-            <div className="h6">Rp.2.000.000 /Bulan</div>
-        </Card.Body>
-      </Card>
-      </NavLink>
-    </div>
-  );
-}
+// var rekom_item = [];
+// for (var i = 1; i <= 4; i++) {
+//   rekom_item.push(
+//     <div className="col-lg-3 col-6 h-100 my-2">
+//       <NavLink to="/Detail">
+//       <Card className="border-0 shadow-sm">
+//         <Card.Img variant="top" src={banner_1} alt="" /> 
+//         <Card.Body className="text-dark">
+//             <div className="h5">ini nama</div>
+//             <div className="h6">Rp.2.000.000 /Bulan</div>
+//         </Card.Body>
+//       </Card>
+//       </NavLink>
+//     </div>
+//   );
+// }
 
 class Main extends Component{
+
 render(){
+
     return(
         <div>
         <Parallax
@@ -67,7 +73,7 @@ render(){
             contentClassName="container py-5"
             strength={500}
         >  
-          <div className="row" style={{ height: '480px' }}>
+          <div className="row">
             <div className="col-lg-4">
               <div className="card p-3 border-0 shadow">
                 <div className="h4 mx-auto mt-2">Cari Kost Dimana?</div>
@@ -92,16 +98,20 @@ render(){
             </div>
           </div>
         </Parallax>
-        
-        <div className="container py-3">
-          <div className="container-fluid d-flex pt-5 pb-3">
-            <div className="h3 font-weight-bold mx-auto my-auto">Kost Di Jakarta</div>
+        <div className="container py-3 px-5">
+          <div className="d-flex pt-5 pb-3">
+            <div className="h3 font-weight-bold mx-auto my-auto">Kost Di Jakarta Barat</div>
           </div>
-            <div className="row">
+          
+          
+          <ItemCard />
             
-            {rekom_item}
-            
+            <div className="d-flex pt-5 pb-3">
+              <div className="h3 font-weight-bold mx-auto my-auto">Kost Di Jakarta Utara</div>
             </div>
+            
+            <ItemCard />
+            
         </div>
         <div className="container-fluid bg-white border-0 shadow">
           <Card className="p-3 border-0">
@@ -110,34 +120,34 @@ render(){
           <div className="container">
 
             <div className="row bg-white px-5 pb-5">
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={wifi} className="img-fluid" />
+                  <img src={wifi} className="img-fluid" alt="" />
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={ac} className="img-fluid" />
+                  <img src={ac} className="img-fluid" alt="" />
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={service} className="img-fluid" />
+                  <img src={service} className="img-fluid" alt="" />
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={parking} className="img-fluid" />
+                  <img src={parking} className="img-fluid" alt="" />
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={shower} className="img-fluid" />
+                  <img src={shower} className="img-fluid" alt="" />
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2 col-md-4 col-6">
                 <div className="p-1">
-                  <img src={furniture} className="img-fluid" />
+                  <img src={furniture} className="img-fluid" alt="" />
                 </div>
               </div>
 
@@ -151,30 +161,25 @@ render(){
             bgImage={require('../img/home_banner_2.jpg')}
             bgImageAlt="Home Banner"
             strength={500}
+            
             >
               <div className="container">
 
-              <div style={{ height: '480px' }}>
+              <div>
                 <div className="text-light">
                   <div className="h1 text-center mt-4">Cari Kostmu di sini Sekarang</div>
-                  <div className="row text-center">
-                    <div className="col-lg-4">
-                      <Card bg="transparent" className="p-5 border-0 my-2">
-                      <Card.Img variant="top" src={like} />
-                      <div className="h3 py-3">Kenyamanan Terjamin</div>
-                      </Card>
+                  <div className="row text-center p-5 mb-3">
+                    <div className="col-4">
+                      <img src={like} alt="" className="img-fluid"/>
+                      <div className="h4 py-3">Kenyamanan Terjamin</div>
                     </div>
-                    <div className="col-lg-4">
-                      <Card bg="transparent" className="p-5 border-0 my-2">
-                      <Card.Img variant="top" src={quality} />
-                      <div className="h3 py-3">Kualitas Terbaik</div>
-                      </Card>
+                    <div className="col-4">
+                      <img src={quality} alt="" className="img-fluid"/>
+                      <div className="h4 py-3">Kualitas Terbaik</div>
                     </div>
-                    <div className="col-lg-4">
-                      <Card bg="transparent" className="p-5 border-0 my-2">
-                      <Card.Img variant="top" src={pay} />
-                      <div className="h3 py-3">Pembayaran Mudah</div>
-                      </Card>
+                    <div className="col-4">
+                      <img src={pay} alt="" className="img-fluid"/>
+                      <div className="h4 py-3">Pembayaran Mudah</div>
                     </div>
                   </div>
                 </div>

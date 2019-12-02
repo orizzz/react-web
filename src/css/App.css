@@ -3,7 +3,8 @@
   --main-red: rgba(198, 57, 104, 0.959);
   --main-black:rgb(36, 0, 0);
   --bg-color:#FCEEDD ;
-  --accent-red: #FFBE86 ;
+  --accent: #FFBE86 ;
+  --accent-red: rgb(192, 55, 55) ;
 }
 
 body{
@@ -13,6 +14,11 @@ body{
 
 a,a:hover{
   text-decoration: none;
+  color: var(--main-red);
+}
+
+a:hover{
+  color: var(--accent-red);
 }
 
 #headerView{
@@ -22,7 +28,7 @@ a,a:hover{
 }
 
 #footerView{
-  background: var(--accent-red);
+  background: var(--accent);
   padding-top: 12px;
   padding-bottom: 12px;
 }
@@ -64,6 +70,10 @@ a,a:hover{
     position: absolute;
     width: auto;
     top:50%;
+}
+
+a .card:hover{
+  box-shadow: 2px 2px 5px var(--main-red);
 }
 
 

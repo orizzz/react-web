@@ -24,7 +24,7 @@ class About extends Component {
                     <div className="card p-3 border-0 shadow">
                         <div className="h4 mx-auto my-3">Cari Kost Dimana?</div>
                         <div className="my-3">
-                        <p class="text-justify">-- adalah website informasi yang berisikan informasi mengenai kosan didaerah Jakarta, segala bentuk informasi yang ada pada website ini diambil dari berbagai sumber dan merupakan hak cipta dari masing-masing pemilik. Sewakosan.id tidak bertanggung jawab atas perubahan yang dilakukan oleh website-website terkait.</p>
+                        <p class="text-justify">-- adalah website informasi yang berisikan informasi mengenai kosan didaerah Jakarta, segala bentuk informasi yang ada pada website ini diambil dari berbagai sumber dan merupakan hak cipta dari masing-masing pemilik. Kami tidak bertanggung jawab atas perubahan yang dilakukan oleh website-website terkait.</p>
                         </div>
                     </div>
                     </div>
