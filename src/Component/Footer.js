@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import Container from 'react-bootstrap/Container'
-import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 import Nav from 'react-bootstrap/Nav'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import NavLink from 'react-router-dom/NavLink';
 import '../css/App.css';
 

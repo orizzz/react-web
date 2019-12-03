@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import banner_1 from '../img/carosel_1.jpg'
 import Card from 'react-bootstrap/Card'
-import NavLink from 'react-router-dom/NavLink';
+import Link from 'react-router-dom/Link'
 
 class ItemCard extends React.Component {
 state = {
@@ -21,10 +21,13 @@ componentDidMount(){
   render() {
     return (
       <div className="row">
-        {this.state.items.map(item =>
-          
+
+        { this.state.items.map(item =>
           <div className="col-lg-4 col-6 my-2">
-            <NavLink to="/Detail">
+          <Link  to={{
+            pathname:  '/Detail/' + item.id_kost + '/' + item.nama_kost,
+            state: {items_id: item.id_kost} ,
+          }}>
               <Card className="border-0 shadow-sm h-100" key={item.index}>
                 <Card.Img variant="top" src={banner_1} alt="{item.nama_kost}" /> 
                 <Card.Body className="text-dark">
@@ -32,10 +35,10 @@ componentDidMount(){
                     <div className="h6 font-weight-light">{item.alamat_kost}</div>
                 </Card.Body>
               </Card>
-            </NavLink>
+            </Link >
           </div>
+          )}
 
-        )}
       </div>
     );
   }

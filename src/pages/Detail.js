@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import {whatsapp} from 'react-icons-kit/fa/whatsapp'
+import { Icon } from 'react-icons-kit'
+import CurrencyFormat from 'react-currency-format'
 
 import banner_1 from '../img/carosel_1.jpg'
 import Carousel from 'react-bootstrap/Carousel'
@@ -6,13 +10,50 @@ import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
 class Detail extends Component {
+
+    state = {
+        Detail:[],
+        Kamar:[],
+    }
+      
+    componentDidMount(){
+        const { items_id } = this.props.location.state //get state dari item
+        // get Detail kost
+        axios.post('http://localhost/webkosan_api/getDetail.php', {
+            "id_kost": items_id,
+          })
+          .then((response) => {
+            this.setState({Detail: response.data})
+            console.log(response);
+          })
+          .catch((error) => {
+            this.setState({Detail: []})
+            console.log(error);
+          });
+        //   get Kategori kamar
+          axios.post('http://localhost/webkosan_api/getKamar.php', {
+            "id_kost": items_id,
+          })
+          .then((response) => {
+            this.setState({Kamar: response.data})
+            console.log(response);
+          })
+          .catch((error) => {
+            this.setState({Kamar:[]})
+            console.log(error);
+          });
+    
+    }
     render() {
+
         return (
         <div>
             <div className="container-fluid p-4">
                 <div className="row">
                     <div className="col-lg-2 col-12">
-                        
+                        <p>
+                            <fasilitas />
+                        </p>
                     </div>
                     <div className="col-lg-8 col-12">
                     <div className="card border-0 p-3 my-3 shadow">
@@ -30,10 +71,15 @@ class Detail extends Component {
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
-                                        <div className="h5">Ini Nama Kost</div>
-                                        <div className="h6">Ini Alamat Kost</div>
-                                        <div className="h6">+62xxxxxxxxxx</div>
-                                        <div className="h6 font-weight-normal justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget consequat sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed sit amet feugiat nulla. </div>
+                                        {this.state.Detail.map(detail => 
+                                        <div>
+                                            <div className="h5">{detail.nama_kost}</div>
+                                            <div className="my-2 h6 font-weight-light">{detail.alamat_kost}</div>
+                                            <div className="my-2 h6 font-weight-light">{detail.deskripsi_kost}</div>
+                                            <div className="my-2 h6">Contact : {detail.kontak_kost}</div>
+                                        </div>
+                                        )}
+                                        
                                     </Card.Body>
                                 </Card>
                             </div>
@@ -42,6 +88,8 @@ class Detail extends Component {
                             <div className="h3 p-3">
                                 Jenis Ruangan
                             </div>
+                            {/* Kategori Kamar */}
+                            {this.state.Kamar.map(kamar => 
                             <Card bg="danger" text="light" className="border-0 p-3 my-2">
                                 <div className="row">
                                     <div className="col-lg-4">
@@ -52,35 +100,42 @@ class Detail extends Component {
                                         />
                                     </div>
                                     <div className="col-lg-4 p-4">
-                                        <div className="h5 ">Kamar Tipe A</div>
+                                        <div className="h5 ">{kamar.nama_kamar}</div>
                                         <div className="h5 ">Fasilitas</div>
                                         <ul>
-                                            <li>Ac</li>
-                                            <li>Wifi</li>
-                                            <li>kamar Mandi</li>
-                                            <li>Tv</li>
+                                            {kamar.fasilitas_kamar.split(',').map(fas => 
+                                                <li>{fas}</li>
+                                            )}
                                         </ul>
                                     </div>
                                     <div className="col-lg-4 p-4">
-                                        <div className="h3 ">Rp. 2.000.000 /Bulan</div>
-                                        <div className="h4 ">Rp. 70.000 /Hari</div>
+                                        <div className="h3 ">Rp.  
+                                        <CurrencyFormat value={kamar.harga_kamar} displayType={'text'} thousandSeparator={true} />
+                                         /Bulan</div>
                                     </div>
                                     <div className="w-100 pr-3 d-flex justify-content-end">
-                                        <Button variant="light">Pesan Sekarang</Button>
+                                        <Button className="" variant="light">Pesan Sekarang</Button>
                                     </div>
                                 </div>
                             </Card>
+                            )}
+                            {/* kategori kamar end */}
+                            <div className="d-flex justify-content-center my-5">
+                                <Button className="mx-2" variant="success">
+                                <Icon className="mr-2" size={18} icon={whatsapp} />
+                                    hubungi kami</Button>
+                            </div>
                         </div>
                     </div>   
                     </div>
                     <div className="col-lg-2 col-12">
-                        <div className="p-2 m-2" >
-                            <img 
-                            src={banner_1} 
-                            width="100%"
-                            height="100%"
-                            alt=""/>
-                            Ini Iklan
+                        <div className="p-2 m-2 " >
+                        <a href="https://pbn.roomme.id/"><img className="img-fluid w-100 h-100"
+                         src="https://kostroomme.com/wp-content/uploads/2019/11/Aplikasi-Roomme.jpg" 
+                         title="pbn.roomme.id" alt="pbn.roomme.id"/></a>
+
+                        <a href="https://pbn.roomme.id/"><img 
+                        src="https://via.placeholder.com/300" className="img-fluid w-100 h-100"/></a>
                         </div>
                     </div>
                 </div>

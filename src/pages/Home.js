@@ -21,8 +21,6 @@ import FormControl from 'react-bootstrap/FormControl'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
-import NavLink from 'react-router-dom/NavLink';
-import Axios from 'axios'
 
   var carosel_item = [];
   for (var i = 1; i <= 3; i++) {
@@ -103,15 +101,11 @@ render(){
             <div className="h3 font-weight-bold mx-auto my-auto">Kost Di Jakarta Barat</div>
           </div>
           
-          
-          <ItemCard />
-            
+            <ItemCard />
             <div className="d-flex pt-5 pb-3">
               <div className="h3 font-weight-bold mx-auto my-auto">Kost Di Jakarta Utara</div>
             </div>
-            
             <ItemCard />
-            
         </div>
         <div className="container-fluid bg-white border-0 shadow">
           <Card className="p-3 border-0">

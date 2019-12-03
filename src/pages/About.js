@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 
-import { Parallax, Background } from 'react-parallax'
-import banner_1 from '../img/carosel_1.jpg'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import InputGroup from 'react-bootstrap/InputGroup'
-import Carousel from 'react-bootstrap/Carousel'
-import Card from 'react-bootstrap/Card'
+import { Parallax } from 'react-parallax'
 
 class About extends Component {
     render() {

@@ -76,6 +76,10 @@ a .card:hover{
   box-shadow: 2px 2px 5px var(--main-red);
 }
 
+.navbar-nav a:checked{
+  color: black;
+}
+
 
 
 
