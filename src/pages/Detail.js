@@ -15,45 +15,49 @@ class Detail extends Component {
         Detail:[],
         Kamar:[],
     }
-      
+    
     componentDidMount(){
-        const { items_id } = this.props.location.state //get state dari item
+        const {id} = this.props.match.params
+        const {nama_kost} = this.props.match.params
+        console.log(this.props);
         // get Detail kost
         axios.post('http://localhost/webkosan_api/getDetail.php', {
-            "id_kost": items_id,
-          })
-          .then((response) => {
+            "id_kost": id,
+            "nama_kost":nama_kost
+        })
+        .then((response) => {
             this.setState({Detail: response.data})
             console.log(response);
-          })
-          .catch((error) => {
-            this.setState({Detail: []})
+        })
+        .catch((error) => {
+            this.setState({Detail: [{status:null}]})
             console.log(error);
-          });
+        });
         //   get Kategori kamar
-          axios.post('http://localhost/webkosan_api/getKamar.php', {
-            "id_kost": items_id,
-          })
-          .then((response) => {
+        axios.post('http://localhost/webkosan_api/getKamar.php', {
+            "id_kost": id,
+        })
+        .then((response) => {
             this.setState({Kamar: response.data})
             console.log(response);
-          })
-          .catch((error) => {
-            this.setState({Kamar:[]})
+        })
+        .catch((error) => {
+            this.setState({Kamar: [{status:null}]})
             console.log(error);
-          });
-    
+        });
+        
     }
+    
     render() {
 
+
         return (
-        <div>
+            <div>
             <div className="container-fluid p-4">
                 <div className="row">
                     <div className="col-lg-2 col-12">
-                        <p>
-                            <fasilitas />
-                        </p>
+                        <div className="h3">
+                        </div>
                     </div>
                     <div className="col-lg-8 col-12">
                     <div className="card border-0 p-3 my-3 shadow">

@@ -11,14 +11,12 @@ import like from '../img/facility/like.png'
 import quality from '../img/facility/quality.png'
 import pay from '../img/facility/pay.png'
 
-import '../css/App.css'
-import ItemCard from '../Component/ItemCard'
+import SearchBar from '../Component/SearchBar';
 
+import '../css/App.css'
+
+import ItemCard from '../Component/ItemCard'
 import { Parallax } from 'react-parallax'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
 
@@ -41,28 +39,15 @@ import Card from 'react-bootstrap/Card'
     );
   }
 
+  
+  class Main extends Component{
 
-// var rekom_item = [];
-// for (var i = 1; i <= 4; i++) {
-//   rekom_item.push(
-//     <div className="col-lg-3 col-6 h-100 my-2">
-//       <NavLink to="/Detail">
-//       <Card className="border-0 shadow-sm">
-//         <Card.Img variant="top" src={banner_1} alt="" /> 
-//         <Card.Body className="text-dark">
-//             <div className="h5">ini nama</div>
-//             <div className="h6">Rp.2.000.000 /Bulan</div>
-//         </Card.Body>
-//       </Card>
-//       </NavLink>
-//     </div>
-//   );
-// }
-
-class Main extends Component{
-
-render(){
-
+  getURL = (searchBarData) => {
+    this.props.history.push('/Search/'+searchBarData)
+  }
+  
+  render(){
+    console.log(this.props)
     return(
         <div>
         <Parallax
@@ -70,20 +55,13 @@ render(){
             bgImageAlt="Home Banner"
             contentClassName="container py-5"
             strength={500}
-        >  
+            >  
           <div className="row">
             <div className="col-lg-4">
               <div className="card p-3 border-0 shadow">
                 <div className="h4 mx-auto mt-2">Cari Kost Dimana?</div>
                 <div className="my-3">
-                  <Form>
-                      <InputGroup>
-                          <FormControl type="text" placeholder="Cari Lokasi" />
-                          <InputGroup.Append>
-                              <Button variant="dark" type="submit">Cari</Button>
-                          </InputGroup.Append>
-                      </InputGroup>
-                  </Form>
+                  <SearchBar parentCallback = {this.getURL}/>
                 </div>
               </div>
             </div>
@@ -183,7 +161,8 @@ render(){
 
       </div>
     );
+  }
 }
-}
+
 
 export default Main

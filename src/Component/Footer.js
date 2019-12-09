@@ -16,11 +16,11 @@ class Footer extends Component {
             <div className="container py-3 d-flex">
                 <Nav justify className="flex-column mx-2">
                     <div className="h5 text-light">Lokasi Populer</div>
-                    <NavLink className="p-1" to="/Search">Jakarta Barat</NavLink>
-                    <NavLink className="p-1" to="#">Jakarta Pusat</NavLink>
-                    <NavLink className="p-1" to="#">Jakarta Selatan</NavLink>
-                    <NavLink className="p-1" to="#">Jakarta Timur</NavLink>
-                    <NavLink className="p-1" to="#">Jakarta Utara</NavLink>
+                    <NavLink className="p-1" to="/Search/Jakarta Barat">Jakarta Barat</NavLink>
+                    <NavLink className="p-1" to="/Search/Jakarta Pusat">Jakarta Pusat</NavLink>
+                    <NavLink className="p-1" to="/Search/Jakarta Selatan">Jakarta Selatan</NavLink>
+                    <NavLink className="p-1" to="/Search/Jakarta Timur">Jakarta Timur</NavLink>
+                    <NavLink className="p-1" to="/Search/Jakarta Utara">Jakarta Utara</NavLink>
                 </Nav>
                 <Nav className="flex-column ml-auto">
                     <div className="h5 text-light">Sosial Media</div>

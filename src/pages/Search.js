@@ -1,16 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios';
 
 import banner_1 from '../img/carosel_1.jpg'
 import { Parallax } from 'react-parallax'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Card from 'react-bootstrap/Card'
 import NavLink from 'react-router-dom/NavLink';
 
+import SearchBar from '../Component/SearchBar';
+import ItemSearch from '../Component/itemSearch';
+
 class Search extends Component {
+    
+    state = {
+        SearchResult:[],
+    }
+
+    getURL = (searchBarData) => {
+        this.props.history.push('/Search/'+searchBarData)
+        window.location.reload();
+    }
+
+    
+    componentDidMount(){
+        console.log(this.props);
+        const {searchQuery} = this.props.match.params
+        // get Detail kost
+        axios.post('http://localhost/webkosan_api/getSearch.php', {
+            "nama_kost": searchQuery,
+            "alamat_kost": searchQuery,
+            "lokasi_kost": searchQuery
+        })
+        .then((response) => {
+            this.setState({SearchResult: response.data})
+            console.log(response);
+        })
+        .catch((error) => {
+            this.setState({SearchResult: [{status:null}]})
+            console.log(error);
+        });
+    }
+    
     render() {
+        
+        const {searchQuery} = this.props.match.params
+        console.log(this.props)
         return (
             <div>
                 <Parallax
@@ -18,38 +51,36 @@ class Search extends Component {
                 bgImageAlt="Home Banner"
                 strength={50}
                 >
-                    <div className="d-flex" style={{ height: '180px' }}>
+                    <div className="d-flex" style={{ height: '180px'}}>
                         <div className="container my-auto">
-                        <Form className="mx-auto" >
-                            <InputGroup>
-                                <FormControl type="text" placeholder="Cari yang lain?" />
-                                <InputGroup.Append>
-                                    <Button variant="dark" type="submit">Cari</Button>
-                                </InputGroup.Append>
-                            </InputGroup>
-                        </Form>
+                            <SearchBar parentCallback = {this.getURL}/>
                         </div>
                     </div>
                 </Parallax>
                 
                 <div className="container-fluid p-4">
+                    <div className="d-flex justify-content-center">
+
+                    </div>
                     <div className="row">
                         <div className="col-lg-2 col-12">
                             
                         </div>
                         <div className="col-lg-8 col-12">
                             <div className="row">
-                                {item}  
+                            
+                            <ItemSearch searchData={searchQuery}/>
+
                             </div>
                         </div>
                         <div className="col-lg-2 col-12">
-                            <div className="p-2">
-                                <img 
-                                src={banner_1} 
-                                width="100%"
-                                height="100%"
-                                alt="" />
-                                Ini Iklan
+                            <div className="p-2 m-2 " >
+                            <a href="https://pbn.roomme.id/"><img className="img-fluid w-100 h-100"
+                            src="https://kostroomme.com/wp-content/uploads/2019/11/Aplikasi-Roomme.jpg" 
+                            title="pbn.roomme.id" alt="pbn.roomme.id"/></a>
+
+                            <a href="https://pbn.roomme.id/"><img 
+                            src="https://via.placeholder.com/300" className="img-fluid w-100 h-100"/></a>
                             </div>
                         </div>
                     </div>
@@ -62,17 +93,7 @@ class Search extends Component {
 var item = [];
 for (var i = 1; i <= 6; i++) {
     item.push(
-    <div className="col-lg-4 col-md-6 col-12 h-100 my-2">
-      <NavLink to="/Detail">
-      <Card className="border-0 shadow-sm">
-        <Card.Img variant="top" src={banner_1} /> 
-        <Card.Body className="text-dark">
-            <div className="h5">Ini nama</div>
-            <div className="h6">Rp.2.000.000 /Bulan</div>
-        </Card.Body>
-      </Card>
-      </NavLink>
-    </div>
+    
   );
 }
 

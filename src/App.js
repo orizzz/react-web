@@ -6,6 +6,7 @@ import Detail from './pages/Detail';
 import Search from './pages/Search'
 import Header from './Component/Header'
 import Footer from './Component/Footer'
+import ErrorBoundary from './Component/ErrorBoundary'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 
 function App() {
@@ -14,10 +15,12 @@ function App() {
       <Router>
       <Header />
         <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/About" component={About} />
-          <Route path="/Detail/:id/:nama" component={Detail} />
-          <Route path="/Search" component={Search} />
+          <ErrorBoundary>
+            <Route exact name="Home" path="/" component={Main} />
+            <Route exact name="About" path="/About" component={About} />
+            <Route exact name="Detail" path="/Detail/:id/:nama_kost" component={Detail} />
+            <Route exact name="Search" path="/Search/:searchQuery" component={Search} />
+          </ErrorBoundary>
         </Switch>
       <Footer />
       </Router>
