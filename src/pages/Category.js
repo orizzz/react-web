@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 import API_URL from '../config'
 
 import banner_1 from '../img/carosel_1.jpg'
@@ -9,7 +10,7 @@ import Link from 'react-router-dom/Link'
 
 import SearchBar from '../Component/SearchBar'
 
-class Search extends Component {
+class Category extends Component {
 
     constructor(props) {
         super(props);
@@ -45,7 +46,7 @@ class Search extends Component {
                 this.setState({ SearchResult: responseJson.data }) 
                 console.log(responseJson)
             }else{
-                alert("Data tidak ditemukan");
+                alert("ERROR");
             }
         });
     }
@@ -74,7 +75,10 @@ class Search extends Component {
                 {listSearch}
             </Row>
         );
-    }      
+    }
+
+
+      
 
     render() {
         
@@ -126,4 +130,5 @@ class Search extends Component {
     }
 }
 
-export default Search;
+
+export default Category;

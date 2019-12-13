@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import API_URL from '../config'
 import {whatsapp} from 'react-icons-kit/fa/whatsapp'
 import { Icon } from 'react-icons-kit'
 import CurrencyFormat from 'react-currency-format'
@@ -8,49 +8,91 @@ import banner_1 from '../img/carosel_1.jpg'
 import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { any } from 'prop-types';
 
 class Detail extends Component {
 
-    state = {
-        Detail:[],
-        Kamar:[],
+    constructor(props) {
+        super(props);
+        this.state = {
+            unit: any,
+            rooms: [],
+            rooms_fas: [],
+            fasilitas: []
+        }
     }
     
     componentDidMount(){
         const {id} = this.props.match.params
         const {nama_kost} = this.props.match.params
         console.log(this.props);
-        // get Detail kost
-        axios.post('http://localhost/webkosan_api/getDetail.php', {
-            "id_kost": id,
-            "nama_kost":nama_kost
-        })
-        .then((response) => {
-            this.setState({Detail: response.data})
-            console.log(response);
-        })
-        .catch((error) => {
-            this.setState({Detail: [{status:null}]})
-            console.log(error);
-        });
-        //   get Kategori kamar
-        axios.post('http://localhost/webkosan_api/getKamar.php', {
-            "id_kost": id,
-        })
-        .then((response) => {
-            this.setState({Kamar: response.data})
-            console.log(response);
-        })
-        .catch((error) => {
-            this.setState({Kamar: [{status:null}]})
-            console.log(error);
-        });
+
+        fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                req: "detail",
+                id_kost: id
+            })
+        }).then(response => response.json())
+            .then(responseJson => {
+                this.setState({data: responseJson.data})
+                this.setState({unit: responseJson.data.unit})
+                this.setState({rooms: responseJson.data.rooms})
+                console.log(responseJson);
+                
+            }).catch((error) => {
+                console.log(error)
+            })
         
+    }
+
+    renderRooms(item){
+        let rooms = item
+        let roomType = rooms.map(room =>
+            
+            <Card bg="danger" text="light" className="border-0 p-3 my-2">
+            <div className="row">
+                <div className="col-lg-4">
+                    <img
+                    className="img d-block w-100 rounded"
+                    src={banner_1}
+                    alt={room.jenis_rm}
+                    />
+                </div>
+                <div className="col-lg-4 p-4">
+                    <div className="h5 ">{room.jenis_rm}</div>
+                    <div className="h5 ">Fasilitas</div>
+                        {room.fasilitas.map(fas => 
+                            <div className="badge badge-light m-1 p-2">{fas}</div>
+                        )}
+                </div>
+                <div className="col-lg-4 p-4">
+                    <div className="h3 ">Rp.  
+                    <CurrencyFormat value={room.harga} displayType={'text'} thousandSeparator={true} />
+                     /Bulan</div>
+                </div>
+                <div className="w-100 pr-3 d-flex justify-content-end">
+                    <Button className="" variant="light">Pesan Sekarang</Button>
+                </div>
+            </div>
+        </Card>
+        
+        )
+        return(
+            <div>
+                {roomType}
+            </div>
+        )
+
     }
     
     render() {
 
-
+        
         return (
             <div>
             <div className="container-fluid p-4">
@@ -71,18 +113,14 @@ class Detail extends Component {
                                 <Card className="border-0 my-2 shadow">
                                     <Card.Header>
                                         <div>
-                                            Informasi
+                                            Informasi Kost
                                         </div>
                                     </Card.Header>
                                     <Card.Body>
-                                        {this.state.Detail.map(detail => 
-                                        <div>
-                                            <div className="h5">{detail.nama_kost}</div>
-                                            <div className="my-2 h6 font-weight-light">{detail.alamat_kost}</div>
-                                            <div className="my-2 h6 font-weight-light">{detail.deskripsi_kost}</div>
-                                            <div className="my-2 h6">Contact : {detail.kontak_kost}</div>
-                                        </div>
-                                        )}
+                                
+                                            <div className="h5">{this.state.unit.nama_kost}</div>
+                                            <div className="mb-4 h6 font-weight-light">{this.state.unit.lokasi}</div>
+                                            <div className="my-2 h6 font-weight-light justify">{this.state.unit.deskripsi}</div>
                                         
                                     </Card.Body>
                                 </Card>
@@ -92,38 +130,10 @@ class Detail extends Component {
                             <div className="h3 p-3">
                                 Jenis Ruangan
                             </div>
-                            {/* Kategori Kamar */}
-                            {this.state.Kamar.map(kamar => 
-                            <Card bg="danger" text="light" className="border-0 p-3 my-2">
-                                <div className="row">
-                                    <div className="col-lg-4">
-                                        <img
-                                        className="img d-block w-100 rounded"
-                                        src={banner_1}
-                                        alt="First slide"
-                                        />
-                                    </div>
-                                    <div className="col-lg-4 p-4">
-                                        <div className="h5 ">{kamar.nama_kamar}</div>
-                                        <div className="h5 ">Fasilitas</div>
-                                        <ul>
-                                            {kamar.fasilitas_kamar.split(',').map(fas => 
-                                                <li>{fas}</li>
-                                            )}
-                                        </ul>
-                                    </div>
-                                    <div className="col-lg-4 p-4">
-                                        <div className="h3 ">Rp.  
-                                        <CurrencyFormat value={kamar.harga_kamar} displayType={'text'} thousandSeparator={true} />
-                                         /Bulan</div>
-                                    </div>
-                                    <div className="w-100 pr-3 d-flex justify-content-end">
-                                        <Button className="" variant="light">Pesan Sekarang</Button>
-                                    </div>
-                                </div>
-                            </Card>
-                            )}
-                            {/* kategori kamar end */}
+                            
+                            {this.renderRooms(this.state.rooms)}
+
+                            
                             <div className="d-flex justify-content-center my-5">
                                 <Button className="mx-2" variant="success">
                                 <Icon className="mr-2" size={18} icon={whatsapp} />
