@@ -4,15 +4,14 @@ import Main from './pages/Home';
 import About from './pages/About';
 import Detail from './pages/Detail';
 import Search from './pages/Search'
-import Header from './Component/Header'
-import Footer from './Component/Footer'
-import ErrorBoundary from './Component/ErrorBoundary'
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import Header from './component/Header'
+import Footer from './component/Footer'
+import ErrorBoundary from './component/ErrorBoundary'
+import {Switch,Route} from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <Router>
       <Header />
         <Switch>
           <ErrorBoundary>
@@ -22,8 +21,7 @@ function App() {
             <Route exact name="Search" path="/Search/:searchQuery" component={Search} />
           </ErrorBoundary>
         </Switch>
-      <Footer />
-      </Router>
+      <Footer/>
     </div>
   );
 }

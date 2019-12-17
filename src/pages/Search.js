@@ -7,7 +7,7 @@ import { Row, Col, Card, Button } from 'react-bootstrap'
 
 import Link from 'react-router-dom/Link'
 
-import SearchBar from '../Component/SearchBar'
+import SearchBar from '../component/SearchBar'
 
 class Search extends Component {
 
@@ -19,7 +19,7 @@ class Search extends Component {
         }
     }
 
-    getURL = (searchBarData) => {
+    getURL=(searchBarData)=>{
         this.props.history.push('/Search/'+searchBarData)
         window.location.reload();
     }

@@ -20,7 +20,7 @@ class Category extends Component {
         }
     }
 
-    getURL = (searchBarData) => {
+    getURL(searchBarData){
         this.props.history.push('/Search/'+searchBarData)
         window.location.reload();
     }
@@ -92,7 +92,7 @@ class Category extends Component {
                 >
                     <div className="d-flex" style={{ height: '180px'}}>
                         <div className="container my-auto">
-                            <SearchBar parentCallback = {this.getURL}/>
+                            <SearchBar parentCallback = {this.getURL(searchQuery)}/>
                         </div>
                     </div>
                 </Parallax>

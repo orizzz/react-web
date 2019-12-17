@@ -25,7 +25,7 @@ export default class ErrorBoundary extends React.Component {
       console.log(error, errorInfo);
     }
 
-    onclickHandle = () => {
+    onclickHandle() {
       this.props.history.replace('/')
       window.location.reload()
     }

@@ -13,7 +13,7 @@ import like from '../img/facility/like.png'
 import quality from '../img/facility/quality.png'
 import pay from '../img/facility/pay.png'
 
-import SearchBar from '../Component/SearchBar';
+import SearchBar from '../component/SearchBar';
 
 import '../css/App.css'
 
@@ -118,7 +118,7 @@ import Link from 'react-router-dom/Link'
     });
 }
 
-  getURL = (searchBarData) => {
+  getURL= (searchBarData)=>{
     this.props.history.push('/Search/'+searchBarData)
   }
 
